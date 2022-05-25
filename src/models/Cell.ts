@@ -20,4 +20,12 @@ export default class Cell {
         this.available = false
         this.id = Math.random()
     }
+
+    public moveFigure (cell: Cell) {
+        if(this.figure && this.figure.canMove(cell)) {
+            this.figure.moveFigure(cell)
+            cell.figure = this.figure
+            this.figure = null
+        }
+    }
 }

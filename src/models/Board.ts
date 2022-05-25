@@ -10,7 +10,7 @@ import {King} from "./figures/King";
 class Board {
     cells: Cell[][] = []
 
-    initCells() {
+    public initCells() {
         for (let i = 0; i < 8; i++) {
             let row: Cell[] = []
             for (let j = 0; j < 8; j++) {
@@ -24,7 +24,23 @@ class Board {
         }
     }
 
-    getCells(x: number, y: number) {
+    public highlightCells(selectedCell: Cell | null) {
+        for(let i = 0; i < this.cells.length; i++) {
+            let row = this.cells[i]
+            for(let j = 0; j < row.length; j++) {
+                const target = row[j]
+                target.available = !!selectedCell?.figure?.canMove(target)
+            }
+        }
+    }
+
+    public getCopyBoard(): Board {
+        const newBoard = new Board()
+        newBoard.cells = this.cells
+        return newBoard
+    }
+
+    public getCells(x: number, y: number) {
         return this.cells[y][x]
     }
 
